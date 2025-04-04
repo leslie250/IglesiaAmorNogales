@@ -2,268 +2,184 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Iglesia Amor en Nogales, México">
     <title>Iglesia Amor</title>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);
+        :root {
+            --color-primary: #007ab8;
+            --color-secondary: #005f8c;
+            --color-light: #f0f9ff;
+        }
+
+        * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            text-align: center;
-            min-height: 100vh;
         }
 
-        /* Barra superior blanca con logo */
-        .header-bar {
-            background-color: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            position: relative;
-            z-index: 10;
-        }
-
-        .logo-container {
-            max-width: 220px;
-            margin: 0 auto;
-            padding: 5px;
-        }
-
-            .logo-container img {
-                width: 100%;
-                height: auto;
-                display: block;
-            }
-
-        /* Contenido principal */
-        .content {
-            padding: 25px;
-            background-color: white;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin: 30px auto;
-            border-radius: 10px;
-            max-width: 800px;
-            position: relative;
-        }
-
-            /* Degradado decorativo detrás del contenido */
-            .content::before {
-                content: '';
-                position: absolute;
-                top: -10px;
-                left: -10px;
-                right: -10px;
-                bottom: -10px;
-                background: linear-gradient(135deg, #007ab8 0%, #005f8c 100%);
-                z-index: -1;
-                border-radius: 15px;
-                opacity: 0.8;
-            }
-
-        .info {
-            text-align: left;
-            margin: 20px 0;
-            font-size: 1rem;
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--color-light);
             line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
         }
 
-            .info p {
-                color: #333;
-                margin: 12px 0;
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        .header {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            width: 180px;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .info-item {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+            .info-item:last-child {
+                border-bottom: none;
+                margin-bottom: 0;
             }
 
         .highlight {
-            color: #007ab8;
-            font-weight: normal;
-        }
-
-        a {
-            text-decoration: none;
-            color: #007ab8;
+            color: var(--color-primary);
             font-weight: bold;
+            display: inline-block;
+            min-width: 120px;
         }
 
-            a:hover {
-                text-decoration: underline;
+        .social-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+            .social-links a {
+                color: var(--color-primary);
+                text-decoration: none;
+                white-space: nowrap;
             }
 
         footer {
-            background-color: #007ab8;
+            background: var(--color-primary);
             color: white;
-            padding: 20px 15px;
-            margin-top: 40px;
             text-align: center;
+            padding: 20px;
+            margin-top: 30px;
         }
 
-            footer p {
-                margin: 8px 0;
-                font-size: 1rem;
-            }
-
-        .copyright {
-            font-size: 0.9rem;
-            margin-top: 20px;
-            opacity: 0.9;
-        }
-
-        .visit-us {
-            font-size: 1.3rem;
-            color: #007ab8;
-            font-weight: normal;
-            margin: 30px 0 15px;
-        }
-
-        /* Carrusel de imágenes */
-        .carousel {
-            width: 100%;
-            max-width: 800px;
-            margin: 30px auto;
-            overflow: hidden;
-            position: relative;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            border: 3px solid white;
-        }
-
-        .carousel-container {
-            display: flex;
-            transition: transform 0.5s ease;
-            height: 350px;
-        }
-
-        .carousel-slide {
-            min-width: 100%;
-            height: 100%;
-        }
-
-            .carousel-slide img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .content {
-                margin: 20px 15px;
-                padding: 20px;
-            }
-
-                .content::before {
-                    top: -5px;
-                    left: -5px;
-                    right: -5px;
-                    bottom: -5px;
-                }
-
-            .carousel {
-                height: 250px;
-            }
-        }
-
+        /* Responsive para móviles pequeños */
         @media (max-width: 480px) {
-            .logo-container {
-                max-width: 180px;
+            .container {
+                padding: 10px;
             }
 
-            .content {
+            .logo {
+                width: 150px;
+            }
+
+            .card {
                 padding: 15px;
-                margin: 15px 10px;
             }
 
-            .carousel {
-                height: 200px;
+            .highlight {
+                min-width: 100px;
+                display: block;
+                margin-bottom: 5px;
             }
 
-            .info p {
+            .info-item {
+                margin-bottom: 12px;
+                padding-bottom: 12px;
+            }
+        }
+
+        /* Ajustes para texto muy largo */
+        @media (max-width: 360px) {
+            .social-links {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .highlight {
+                min-width: 80px;
                 font-size: 0.95rem;
             }
         }
     </style>
 </head>
 <body>
-
-    <!-- Barra superior blanca con logo -->
-    <div class="header-bar">
-        <div class="logo-container">
-            <img src="Imagenes/LogoIGlesiaAmor.png" alt="Logo Iglesia Amor">
-        </div>
+    <div class="header">
+        <img src="Imagenes/LogoIGlesiaAmor.png" alt="Logo Iglesia Amor" class="logo">
     </div>
 
+    <div class="container">
+        <div class="card">
+            <div class="info-item">
+                <span class="highlight">📍 Dirección:</span> Calzada los Vírreyes #108, Nogales, México
+            </div>
 
-    <div class="content">
-        <!-- ... (contenido igual que antes) ... -->
-        <div class="info">
-            <p><span class="highlight">📍 Dirección:</span> Calzada los Virreyes #108, Nogales, México</p>
-            <p><span class="highlight">📞 Teléfono:</span> 631 352 1710</p>
-            <p>
+            <div class="info-item">
+                <span class="highlight">📞 Teléfono:</span> 631 352 1710
+            </div>
+
+            <div class="info-item">
                 <span class="highlight">🌐 Redes Sociales:</span>
-                <a href="https://www.instagram.com/iglesiaamornog" target="_blank">Instagram</a> |
-                <a href="https://www.youtube.com/c/iglesiaamor657" target="_blank">YouTube</a> |
-                <a href="https://www.iglesiaamor.com" target="_blank">Sitio Web</a>
-            </p>
-        </div>
-
-        <div class="info">
-            <p>
-                <span class="highlight">⏰ Horarios:</span>
-                <strong>Martes</strong> 7:00 p.m. |
-                <strong>Domingo</strong> <strong>Primera Reunión</strong> 9:00 a.m. |
-                <strong>Segunda Reunión</strong> 12:00 p.m.
-            </p>
-            <p><span class="highlight">👶 Escuelita Dominical:</span> Los domingos para los niños</p>
-            <p><span class="highlight">🕴️ Red de Hombres, Reunión de Mujeres y Jóvenes.</span></p>
-        </div>
-        <!-- Carrusel de imágenes -->
-        <div class="carousel">
-            <div class="carousel-container" id="carousel">
-                <div class="carousel-slide">
-                    <img src="Imagenes\imagen1.jpg" alt="Evento en la iglesia 1">
-                </div>
-                <div class="carousel-slide">
-                    <img src="Imagenes\imagen2.jpg" alt="Evento en la iglesia 2">
-                </div>
-                <div class="carousel-slide">
-                    <img src="Imagenes\imagen3.jpg" alt="Evento en la iglesia 3">
-                </div>
-                <div class="carousel-slide">
-                    <img src="Imagenes\imagen4.jpg" alt="Evento en la iglesia 4">
-                </div>
-                <div class="carousel-slide">
-                    <img src="Imagenes\imagen5.jpg" alt="Evento en la iglesia 5">
-                </div>
-                <div class="carousel-slide">
-                    <img src="Imagenes\imagen6.jpg" alt="Evento en la iglesia 6">
+                <div class="social-links">
+                    <a href="https://www.instagram.com/iglesiaamornog" target="_blank">Instagram</a>
+                    <a href="https://www.youtube.com/c/iglesiaamor657" target="_blank">YouTube</a>
+                    <a href="https://www.iglesiaamor.com" target="_blank">Sitio Web</a>
                 </div>
             </div>
         </div>
-        <div class="visit-us">
-            <p>¡Te esperamos con los brazos abiertos!</p>
+
+        <div class="card">
+            <div class="info-item">
+                <span class="highlight">⏰ Horarios:</span>
+                <div>
+                    <strong>Martes</strong> 7:00 p.m.<br>
+                    <strong>Domingo:</strong><br>
+                    - Primera Reunión 9:00 a.m.<br>
+                    - Segunda Reunión 12:00 p.m.
+                </div>
+            </div>
+
+            <div class="info-item">
+                <span class="highlight">👶 Escuelita Dominical:</span> Los domingos para los niños
+            </div>
+
+            <div class="info-item">
+                <span class="highlight">🕴️ Reuniones:</span> Red de Hombres, Reunión de Mujeres y Jóvenes
+            </div>
         </div>
     </div>
 
     <footer>
-        <p>Una iglesia fácil de encontrar pero difícil de olvidar en el corazón de Nogales.</p>
-        <p>Con nosotros, tú eres familia.</p>
-        <p class="copyright">Copyright © 2025 iglesiaamor.com - Todos los derechos reservados.</p>
+        <p>Una iglesia fácil de encontrar pero difícil de olvidar</p>
+        <p>© 2025 Iglesia Amor - Todos los derechos reservados</p>
     </footer>
-
-    <script>
-        // Script simple para el carrusel automático
-        let currentIndex = 0;
-        const carousel = document.getElementById('carousel');
-        const slides = document.querySelectorAll('.carousel-slide');
-        const totalSlides = slides.length;
-
-        function moveCarousel() {
-            currentIndex = (currentIndex + 1) % totalSlides;
-            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
-        }
-
-        // Cambia la imagen cada 3 segundos
-        setInterval(moveCarousel, 3000);
-    </script>
-
 </body>
 </html>
