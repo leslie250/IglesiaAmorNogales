@@ -8,47 +8,106 @@
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f0f9ff; /* Azul cielo claro */
+            background-color: #f0f9ff;
             margin: 0;
             padding: 0;
             text-align: center;
+            overflow-x: hidden;
         }
 
-        header {
-            background-color: #007ab8; /* Azul un poco más suave */
+        /* Encabezado innovador */
+        .hero-header {
+            position: relative;
+            padding: 30px 0;
+            background: linear-gradient(135deg, #007ab8 0%, #005f8c 100%);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+
+        .logo-container {
+            position: relative;
+            z-index: 2;
+            max-width: 250px; /* Tamaño controlado del logo */
+            margin: 0 auto;
             padding: 20px;
-            color: white;
-            text-align: center;
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transform-style: preserve-3d;
+            animation: float 6s ease-in-out infinite;
         }
 
-            header img {
-                width: 300px; /* Tamaño del logo */
+            .logo-container img {
+                width: 100%;
                 height: auto;
-                margin-bottom: 15px;
+                display: block;
+                filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3));
             }
 
-        h1 {
-            display: none; /* Ocultamos el título */
+        /* Elementos decorativos 3D */
+        .decor-3d {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            opacity: 0.7;
+            z-index: 1;
         }
 
-        h2 {
-            font-size: 1.3rem;
-            margin-top: 10px;
-            color: white;
+        .decor-left {
+            left: 5%;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath fill='%23ffffff' d='M50 0 L100 50 L50 100 L0 50 Z'/%3E%3C/svg%3E");
+            animation: pulse 4s ease infinite;
         }
 
+        .decor-right {
+            right: 5%;
+            top: 50%;
+            transform: translateY(-50%) rotate(-15deg);
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='40' fill='%23ffffff'/%3E%3C/svg%3E");
+            animation: pulse 5s ease infinite 1s;
+        }
+
+        /* Animaciones */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: translateY(-50%) scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: translateY(-50%) scale(1.2);
+                opacity: 0.9;
+            }
+        }
+
+        /* Resto de estilos (igual que antes) */
         .content {
             padding: 20px;
             background-color: white;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
+            margin: 0 auto 30px;
             border-radius: 10px;
+            max-width: 800px;
+            position: relative;
+            z-index: 3;
         }
 
         .info {
             text-align: left;
             margin: 20px 0;
-            font-size: 1rem; /* Tamaño de fuente ajustado */
+            font-size: 1rem;
         }
 
             .info p {
@@ -56,13 +115,13 @@
             }
 
         .highlight {
-            color: #007ab8; /* Azul suave */
-            font-weight: normal; /* Ajustamos el peso de la fuente */
+            color: #007ab8;
+            font-weight: normal;
         }
 
         a {
             text-decoration: none;
-            color: #007ab8; /* Azul suave */
+            color: #007ab8;
         }
 
             a:hover {
@@ -70,43 +129,93 @@
             }
 
         footer {
-            background-color: #007ab8; /* Azul suave */
+            background-color: #007ab8;
             color: white;
             padding: 15px;
             margin-top: 20px;
+            text-align: center;
         }
 
             footer p {
-                margin: 0;
+                margin: 5px 0;
                 font-size: 1rem;
             }
+
+        .copyright {
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
 
         .visit-us {
             font-size: 1.3rem;
             color: #007ab8;
-            font-weight: normal; /* Ajustamos el peso de la fuente */
+            font-weight: normal;
             margin-top: 20px;
         }
 
-        /* Estilos Responsivos */
+        /* Carrusel de imágenes */
+        .carousel {
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+            overflow: hidden;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .carousel-container {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 300px;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+            .carousel-slide img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
         @media (max-width: 600px) {
             .content {
                 padding: 15px;
             }
 
-            .info p {
-                font-size: 1rem;
+            .carousel {
+                height: 200px;
+            }
+
+            .logo-container {
+                max-width: 180px;
+            }
+
+            .decor-3d {
+                width: 80px;
+                height: 80px;
             }
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <img src="Imagenes\LogoIGlesiaAmor.png" alt="Logo Iglesia Amor" style="background-color: transparent;"> <!-- Reemplaza con el enlace de tu logo -->
+    <header class="hero-header">
+        <!-- Elementos decorativos 3D -->
+        <div class="decor-3d decor-left"></div>
+        <div class="decor-3d decor-right"></div>
+
+        <!-- Logo central -->
+        <div class="logo-container">
+            <img src="Imagenes/LogoIGlesiaAmor.png" alt="Logo Iglesia Amor">
+        </div>
     </header>
 
     <div class="content">
+        <!-- ... (contenido igual que antes) ... -->
         <div class="info">
             <p><span class="highlight">📍 Dirección:</span> Calzada los Virreyes #108, Nogales, México</p>
             <p><span class="highlight">📞 Teléfono:</span> 631 352 1710</p>
@@ -126,7 +235,30 @@
                 <strong>Segunda Reunión</strong> 12:00 p.m.
             </p>
             <p><span class="highlight">👶 Escuelita Dominical:</span> Los domingos para los niños</p>
-            <p><span class="highlight">🕴️ Red de Hombres, Reunión de Mujeres y Jóvenes:</span> Los sábados a las 6:00 p.m.</p>
+            <p><span class="highlight">🕴️ Red de Hombres, Reunión de Mujeres y Jóvenes.</span></p>
+        </div>
+        <!-- Carrusel de imágenes -->
+        <div class="carousel">
+            <div class="carousel-container" id="carousel">
+                <div class="carousel-slide">
+                    <img src="Imagenes\imagen1.jpg" alt="Evento en la iglesia 1">
+                </div>
+                <div class="carousel-slide">
+                    <img src="Imagenes\imagen2.jpg" alt="Evento en la iglesia 2">
+                </div>
+                <div class="carousel-slide">
+                    <img src="Imagenes\imagen3.jpg" alt="Evento en la iglesia 3">
+                </div>
+                <div class="carousel-slide">
+                    <img src="Imagenes\imagen4.jpg" alt="Evento en la iglesia 4">
+                </div>
+                <div class="carousel-slide">
+                    <img src="Imagenes\imagen5.jpg" alt="Evento en la iglesia 5">
+                </div>
+                <div class="carousel-slide">
+                    <img src="Imagenes\imagen6.jpg" alt="Evento en la iglesia 6">
+                </div>
+            </div>
         </div>
 
         <div class="info">
@@ -141,9 +273,24 @@
     <footer>
         <p>Una iglesia fácil de encontrar pero difícil de olvidar en el corazón de Nogales.</p>
         <p>Con nosotros, tú eres familia.</p>
+        <p class="copyright">Copyright © 2025 iglesiaamor.com - Todos los derechos reservados.</p>
     </footer>
+
+    <script>
+        // Script simple para el carrusel automático
+        let currentIndex = 0;
+        const carousel = document.getElementById('carousel');
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+
+        function moveCarousel() {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+        }
+
+        // Cambia la imagen cada 3 segundos
+        setInterval(moveCarousel, 3000);
+    </script>
 
 </body>
 </html>
-
-
