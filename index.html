@@ -37,10 +37,12 @@
             background: white;
             padding: 15px 0;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
         }
 
         .logo {
-            width: 180px;
+            width: min(180px, 50vw);
             margin: 0 auto;
             display: block;
         }
@@ -83,6 +85,54 @@
                 white-space: nowrap;
             }
 
+        /* Carrusel de imágenes */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 25px auto;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 300px;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+            .carousel-slide img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+        /* Indicadores del carrusel */
+        .carousel-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+
+            .indicator.active {
+                background: var(--color-primary);
+            }
+
         footer {
             background: var(--color-primary);
             color: white;
@@ -91,7 +141,13 @@
             margin-top: 30px;
         }
 
-        /* Responsive para móviles pequeños */
+        /* Responsive para móviles */
+        @media (max-width: 768px) {
+            .carousel {
+                height: 250px;
+            }
+        }
+
         @media (max-width: 480px) {
             .container {
                 padding: 10px;
@@ -115,9 +171,17 @@
                 margin-bottom: 12px;
                 padding-bottom: 12px;
             }
+
+            .carousel {
+                height: 200px;
+            }
+
+            .indicator {
+                width: 10px;
+                height: 10px;
+            }
         }
 
-        /* Ajustes para texto muy largo */
         @media (max-width: 360px) {
             .social-links {
                 flex-direction: column;
@@ -127,6 +191,10 @@
             .highlight {
                 min-width: 80px;
                 font-size: 0.95rem;
+            }
+
+            .carousel {
+                height: 180px;
             }
         }
     </style>
@@ -151,8 +219,30 @@
                 <div class="social-links">
                     <a href="https://www.instagram.com/iglesiaamornog" target="_blank">Instagram</a>
                     <a href="https://www.youtube.com/c/iglesiaamor657" target="_blank">YouTube</a>
+                    <a href="https://www.facebook.com/Iglesiaamornog" target="_blank">Faceboock</a>
                     <a href="https://www.iglesiaamor.com" target="_blank">Sitio Web</a>
                 </div>
+            </div>
+        </div>
+
+        <!-- Carrusel de imágenes -->
+        <div class="carousel-container">
+            <div class="carousel" id="carousel">
+                <div class="carousel-slide">
+                    <img src="Imagenes/imagen1.jpg" alt="Actividades de la iglesia">
+                </div>
+                <div class="carousel-slide">
+                    <img src="Imagenes/imagen2.jpg" alt="Celebraciones en la iglesia">
+                </div>
+                <div class="carousel-slide">
+                    <img src="Imagenes/imagen3.jpg" alt="Eventos comunitarios">
+                </div>
+                <div class="carousel-slide">
+                    <img src="Imagenes/imagen4.jpg" alt="Grupo de jóvenes">
+                </div>
+            </div>
+            <div class="carousel-indicators" id="indicators">
+                <!-- Los indicadores se generan con JavaScript -->
             </div>
         </div>
 
@@ -181,5 +271,60 @@
         <p>Una iglesia fácil de encontrar pero difícil de olvidar</p>
         <p>© 2025 Iglesia Amor - Todos los derechos reservados</p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const carousel = document.getElementById('carousel');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const indicatorsContainer = document.getElementById('indicators');
+            let currentIndex = 0;
+            const totalSlides = slides.length;
+
+            // Crear indicadores
+            slides.forEach((_, index) => {
+                const indicator = document.createElement('div');
+                indicator.classList.add('indicator');
+                if (index === 0) indicator.classList.add('active');
+                indicator.addEventListener('click', () => {
+                    goToSlide(index);
+                });
+                indicatorsContainer.appendChild(indicator);
+            });
+
+            // Función para cambiar de slide
+            function goToSlide(index) {
+                currentIndex = index;
+                carousel.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+                // Actualizar indicadores
+                document.querySelectorAll('.indicator').forEach((ind, i) => {
+                    ind.classList.toggle('active', i === currentIndex);
+                });
+            }
+
+            // Cambio automático cada 4 segundos
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                goToSlide(currentIndex);
+            }, 4000);
+
+            // Pausar al hacer hover
+            carousel.addEventListener('mouseenter', () => {
+                clearInterval(interval);
+            });
+
+            carousel.addEventListener('mouseleave', () => {
+                interval = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % totalSlides;
+                    goToSlide(currentIndex);
+                }, 4000);
+            });
+
+            let interval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                goToSlide(currentIndex);
+            }, 4000);
+        });
+    </script>
 </body>
 </html>
